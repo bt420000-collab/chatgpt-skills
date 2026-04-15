@@ -1,0 +1,3 @@
+interface:
+  display_name: "Product Delivery Autopilot"
+  short_description: "Autonomous product delivery with acceptance, QA, and release gates"
