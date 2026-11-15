@@ -16,6 +16,7 @@ This repo stores skill source files in a clean, versionable structure so each sk
 | Skill | Status | Best for | Path |
 |---|---|---|---|
 | `product-delivery-autopilot` | active | turning ambiguous multi-step work into a user-ready deliverable with acceptance, QA, and release gates | [`product-delivery-autopilot/`](./product-delivery-autopilot/) |
+| `spacekeeper-reference` | v0.1 | stable 2D spatial memory for AI image keyframes across cameras and agents | [`spacekeeper-reference/`](./spacekeeper-reference/) |
 
 ### product-delivery-autopilot
 
@@ -31,6 +32,17 @@ Core files:
 - [`SKILL.md`](./product-delivery-autopilot/SKILL.md)
 - [`agents/openai.yaml`](./product-delivery-autopilot/agents/openai.yaml)
 - [`references/`](./product-delivery-autopilot/references/)
+
+### spacekeeper-reference
+
+Lightweight, agent-agnostic spatial continuity rules for AI image keyframe references. Records actors, props, landmarks and camera viewpoints in a common 2D scene JSON. Agents are free to implement visualization and prompt generation however they prefer; cross-agent handoff uses a stable JSON schema.
+
+Core files:
+- [`SKILL.md`](./spacekeeper-reference/SKILL.md)
+- [`spec/CONTRACT.md`](./spacekeeper-reference/spec/CONTRACT.md)
+- [`spec/scene.schema.json`](./spacekeeper-reference/spec/scene.schema.json)
+- [`examples/`](./spacekeeper-reference/examples/)
+- [`tests/ACCEPTANCE.md`](./spacekeeper-reference/tests/ACCEPTANCE.md)
 
 ## Repository layout
 
