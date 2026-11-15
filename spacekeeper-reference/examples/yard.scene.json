@@ -1,0 +1,19 @@
+{
+  "format": "spacekeeper.scene",
+  "version": "0.1",
+  "scene_id": "yard_dog",
+  "revision": 1,
+  "title": "东墙边的小狗与院子地标",
+  "axes": "x_east_y_north",
+  "entities": [
+    {"id": "wall_e", "label": "东侧围墙", "kind": "structure", "fixed": true, "location": {"xy": [2, 0], "certainty": "given"}},
+    {"id": "tree_n", "label": "北侧大树", "kind": "landmark", "fixed": true, "location": {"xy": [0, 2], "certainty": "given"}},
+    {"id": "pond_s", "label": "南侧池塘", "kind": "landmark", "fixed": true, "location": {"xy": [0, -2], "certainty": "given"}},
+    {"id": "dog_1", "label": "小狗", "kind": "animal", "fixed": false, "location": {"relative_to": "wall_e", "relation": "near", "certainty": "given"}}
+  ],
+  "shots": [
+    {"id": "shot_south", "camera": {"position": [0, -3], "target": [0, 0]}, "framing": "wide", "focus_ids": ["dog_1", "tree_n", "pond_s"], "must_show_ids": ["dog_1"], "notes": "东墙应在画面右侧方向；小狗应仍靠东墙，但墙边具体南北位置未知。"},
+    {"id": "shot_west", "camera": {"position": [-3, 0], "target": [0, 0]}, "framing": "wide", "focus_ids": ["dog_1", "wall_e", "tree_n", "pond_s"], "must_show_ids": ["dog_1"], "notes": "东墙位于远处；树偏左、池塘偏右；不要擅自断定小狗在墙上哪个具体纵向位置。"}
+  ],
+  "events": []
+}
