@@ -1,0 +1,23 @@
+{
+  "format": "spacekeeper.scene",
+  "version": "0.1",
+  "scene_id": "dinner_table",
+  "revision": 1,
+  "title": "三人餐桌与一个空位",
+  "axes": "x_east_y_north",
+  "entities": [
+    {"id": "table_main", "label": "餐桌", "kind": "prop", "fixed": true, "location": {"xy": [0, 0], "certainty": "given"}},
+    {"id": "chair_w", "label": "西侧椅子", "kind": "prop", "fixed": true, "location": {"xy": [-1, 0], "certainty": "given"}},
+    {"id": "chair_n", "label": "北侧椅子", "kind": "prop", "fixed": true, "location": {"xy": [0, 1], "certainty": "given"}},
+    {"id": "chair_e", "label": "东侧椅子", "kind": "prop", "fixed": true, "location": {"xy": [1, 0], "certainty": "given"}},
+    {"id": "chair_s", "label": "南侧椅子", "kind": "prop", "fixed": true, "location": {"xy": [0, -1], "certainty": "given"}},
+    {"id": "person_a", "label": "甲", "kind": "character", "fixed": false, "location": {"relative_to": "chair_w", "relation": "at", "certainty": "given"}},
+    {"id": "person_b", "label": "乙", "kind": "character", "fixed": false, "location": {"relative_to": "chair_n", "relation": "at", "certainty": "given"}},
+    {"id": "person_c", "label": "丙", "kind": "character", "fixed": false, "location": {"relative_to": "chair_e", "relation": "at", "certainty": "given"}}
+  ],
+  "shots": [
+    {"id": "shot_south", "camera": {"position": [0, -3], "target": [0, 0]}, "framing": "wide", "focus_ids": ["person_a", "person_b", "person_c"], "must_show_ids": ["person_a", "person_b", "person_c"], "notes": "从南向北；甲左、乙远处、丙右。"},
+    {"id": "shot_east", "camera": {"position": [3, 0], "target": [0, 0]}, "framing": "wide", "focus_ids": ["person_a", "person_b", "person_c"], "must_show_ids": ["person_a", "person_b", "person_c"], "notes": "从东向西；南侧空位左、甲远处、乙右、丙近景。"}
+  ],
+  "events": []
+}
