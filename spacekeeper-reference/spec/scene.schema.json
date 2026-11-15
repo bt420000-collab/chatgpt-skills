@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:spacekeeper:scene:0.1",
+  "title": "SpaceKeeper canonical scene v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "version", "scene_id", "revision", "title", "axes", "entities", "shots", "events"],
+  "properties": {
+    "format": {"const": "spacekeeper.scene"},
+    "version": {"const": "0.1"},
+    "scene_id": {"$ref": "#/$defs/id"},
+    "revision": {"type": "integer", "minimum": 1},
+    "title": {"type": "string", "minLength": 1},
+    "axes": {"const": "x_east_y_north"},
+    "entities": {"type": "array", "items": {"$ref": "#/$defs/entity"}},
+    "shots": {"type": "array", "items": {"$ref": "#/$defs/shot"}},
+    "events": {"type": "array", "items": {"$ref": "#/$defs/event"}},
+    "extensions": {"type": "object"}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "xy": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "minItems": 2, "maxItems": 2},
+    "location": {
+      "oneOf": [
+        {
+          "type": "object", "required": ["xy", "certainty"], "additionalProperties": false,
+          "properties": {"xy": {"$ref": "#/$defs/xy"}, "certainty": {"enum": ["given", "inferred"]}, "extensions": {"type": "object"}}
+        },
+        {
+          "type": "object", "required": ["relative_to", "relation", "certainty"], "additionalProperties": false,
+          "properties": {"relative_to": {"$ref": "#/$defs/id"}, "relation": {"enum": ["at", "near", "on", "inside", "north_of", "south_of", "east_of", "west_of"]}, "certainty": {"enum": ["given", "inferred"]}, "extensions": {"type": "object"}}
+        },
+        {"type": "object", "required": ["unknown"], "additionalProperties": false, "properties": {"unknown": {"const": true}, "extensions": {"type": "object"}}}
+      ]
+    },
+    "relation": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "target"],
+      "properties": {"kind": {"enum": ["at", "near", "on", "inside", "north_of", "south_of", "east_of", "west_of", "adjacent", "opposite"]}, "target": {"$ref": "#/$defs/id"}, "extensions": {"type": "object"}}
+    },
+    "entity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "label", "kind", "fixed", "location"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "label": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["character", "animal", "prop", "structure", "landmark", "zone"]},
+        "fixed": {"type": "boolean"}, "location": {"$ref": "#/$defs/location"},
+        "relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}},
+        "extensions": {"type": "object"}
+      }
+    },
+    "shot": {
+      "type": "object", "additionalProperties": false, "required": ["id", "camera", "framing", "focus_ids", "must_show_ids"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"},
+        "camera": {"type": "object", "additionalProperties": false, "required": ["position", "target"],
+          "properties": {"position": {"$ref": "#/$defs/xy"}, "target": {"$ref": "#/$defs/xy"}, "extensions": {"type": "object"}}},
+        "framing": {"enum": ["wide", "medium", "close", "detail"]},
+        "focus_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "must_show_ids": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "reference_image": {"type": ["string", "null"]},
+        "space_prompt": {"type": "string"},
+        "notes": {"type": "string"},
+        "review": {"$ref": "#/$defs/review"},
+        "extensions": {"type": "object"}
+      }
+    },
+    "review": {
+      "type": "object", "additionalProperties": false, "required": ["status", "issues"],
+      "properties": {
+        "status": {"enum": ["unchecked", "pass", "uncertain", "fail"]},
+        "issues": {"type": "array", "items": {"type": "string"}},
+        "checked_image": {"type": "string"},
+        "extensions": {"type": "object"}
+      }
+    },
+    "event": {
+      "type": "object", "additionalProperties": false, "required": ["before_shot_id", "entity_id", "new_location", "reason"],
+      "properties": {
+        "before_shot_id": {"$ref": "#/$defs/id"},
+        "entity_id": {"$ref": "#/$defs/id"},
+        "new_location": {"$ref": "#/$defs/location"},
+        "reason": {"type": "string", "minLength": 1},
+        "extensions": {"type": "object"}
+      }
+    }
+  }
+}
